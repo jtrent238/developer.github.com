@@ -133,6 +133,14 @@ module GitHub
         "closed_by" => USER
       })
 
+      ISSUE_WITH_ASSIGNEES ||= ISSUE.merge({
+        "assignees" => [
+          USER,
+          HUBOT,
+          OTHER_USER
+        ]
+      })
+
       ISSUE_COMMENT ||= {
         "id"         => 1,
         "url"        => "https://api.github.com/repos/octocat/Hello-World/issues/comments/1",

@@ -134,6 +134,39 @@ module GitHub
         [0,1,43],
         [0,2,21]
       ]
+
+      REPOSITORY_INVITATION ||= {
+        "id" => 1,
+        "repository" => REPO,
+        "invitee" => USER,
+        "inviter" => USER,
+        "permissions" => "write",
+        "created_at" => "2016-06-13T14:52:50-05:00",
+        "url" => "https://api.github.com/api/v3/repositories/1296269/invitations/",
+        "html_url" => "#{SIMPLE_REPO['html_url']}/invitations"
+      }
+
+      REPO_BRANCH_PROTECTION_RESTRICTIONS ||= {
+        "url" => "https://api.github.com/repos/octocat/Hello-World/branches/master/protection/restrictions",
+        "users_url" => "https://api.github.com/repos/octocat/Hello-World/branches/master/protection/restrictions/users",
+        "teams_url" => "https://api.github.com/repos/octocat/Hello-World/branches/master/protection/restrictions/teams",
+        "users" => [USER],
+        "teams" => [TEAM]
+      }
+
+      REPO_BRANCH_PROTECTION_REQUIRED_STATUS_CHECKS ||= {
+        "url" => "https://api.github.com/repos/octocat/Hello-World/branches/master/protection/required_status_checks",
+        "include_admins" => true,
+        "strict" => true,
+        "contexts" => ["continuous-integration/travis-ci"],
+        "contexts_url" => "https://api.github.com/repos/octocat/Hello-World/branches/master/protection/required_status_checks/contexts"
+      }
+
+      REPO_BRANCH_PROTECTION ||= {
+        "url" => "https://api.github.com/repos/octocat/Hello-World/branches/master/protection",
+        "required_status_checks" => REPO_BRANCH_PROTECTION_REQUIRED_STATUS_CHECKS,
+        "restrictions" => REPO_BRANCH_PROTECTION_RESTRICTIONS
+      }
     end
   end
 end

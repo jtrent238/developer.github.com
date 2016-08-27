@@ -46,6 +46,16 @@ Nanoc has [some nice documentation](http://nanoc.ws/docs/tutorial/) to get you s
 
 [nanoc]: http://nanoc.ws/
 
+### Enterprise
+
+To generate the `/enterprise` versions, pass in the Enterprise version to `script/server`. For example:
+
+``` sh
+$ script/server 2.6
+```
+
+Note that live reloading is not available for Enterprise documentation.
+
 ## Styleguide
 
 Not sure how to structure the docs?  Here's what the structure of the

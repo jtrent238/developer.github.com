@@ -25,7 +25,7 @@ Name    | Type    | Description
 
 [2fa-blog]: https://github.com/blog/1614-two-factor-authentication
 
-{% if page.version != 'dotcom' and (page.version == 2.4 or page.version == 2.5) %}
+{% if page.version != 'dotcom' and page.version > 2.3 and page.version < 2.6 %}
 
 {{#tip}}
 
@@ -144,7 +144,11 @@ The user can publicize their own membership.
 
 ## Get organization membership
 
-{% if page.version == 'dotcom' or page.version >= 2.4 %}
+{% if page.version == 'dotcom' or page.version >= 2.6 %}
+
+In order to get a user's membership with an organization, the authenticated user must be an organization member.
+
+{% elsif page.version >= 2.4 %}
 
 In order to get a user's membership with an organization, the authenticated user must be an organization owner.
 

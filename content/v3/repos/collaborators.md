@@ -19,10 +19,10 @@ collaborators list.
 
 ### Response
 
+{% if page.version != 'dotcom' and page.version > 2.3 and page.version < 2.6 %}
+
 <%= headers 200, :pagination => default_pagination_rels %>
 <%= json(:user) { |h| [h] } %>
-
-{% if page.version != 'dotcom' and (page.version == 2.4 or page.version == 2.5) %}
 
 ### Alternative response with extra repository information
 
@@ -69,8 +69,19 @@ Name | Type | Description
 
 <%= fetch_content(:optional_put_content_length) %>
 
+{{#tip}}
 
-{% if page.version != 'dotcom' and (page.version == 2.4 or page.version == 2.5) %}
+We're currently offering a preview period allowing applications to opt in to the Repository Invitations API.
+
+To send an invitation to a collaborator rather than directly adding them, you must provide a custom [media type](/v3/media) in the `Accept` header:
+
+```
+application/vnd.github.swamp-thing-preview+json
+```
+
+{{/tip}}
+
+{% if page.version != 'dotcom' and page.version > 2.3 and page.version < 2.6 %}
 
 {{#tip}}
 
@@ -97,6 +108,11 @@ application/vnd.github.ironman-preview+json
 ### Response
 
 <%= headers 204 %>
+
+### Response with preview media type
+
+<%= headers 201 %>
+<%= json(:repository_invitation) %>
 
 ## Remove user as a collaborator
 

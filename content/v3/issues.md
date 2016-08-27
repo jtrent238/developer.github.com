@@ -159,9 +159,10 @@ Name | Type | Description
 -----|------|--------------
 `title`|`string` | **Required**. The title of the issue.
 `body`|`string` | The contents of the issue.
-`assignee`|`string` | Login for the user that this issue should be assigned to. _NOTE: Only users with push access can set the assignee for new issues. The assignee is silently dropped otherwise._
+`assignee`|`string` | Login for the user that this issue should be assigned to. _NOTE: Only users with push access can set the assignee for new issues. The assignee is silently dropped otherwise. **This field is [deprecated](https://developer.github.com/v3/versions/#v3-deprecations).**_
 `milestone`|`integer` | The `number` of the milestone to associate this issue with. _NOTE: Only users with push access can set the milestone for new issues. The milestone is silently dropped otherwise._
 `labels`|`array` of `strings` | Labels to associate with this issue. _NOTE: Only users with push access can set labels for new issues. Labels are silently dropped otherwise._
+`assignees`|`array` of `strings` | Logins for Users to assign to this issue. _NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise._
 
 #### Example
 
@@ -169,6 +170,7 @@ Name | Type | Description
   :title     => "Found a bug",
   :body      => "I'm having a problem with this.",
   :assignee  => "octocat",
+  :assignees => [get_resource(:user)],
   :milestone => 1,
   :labels    => %w(bug)
 %>
@@ -190,11 +192,11 @@ Name | Type | Description
 -----|------|--------------
 `title`|`string` | The title of the issue.
 `body`|`string` | The contents of the issue.
-`assignee`|`string` | Login for the user that this issue should be assigned to.
+`assignee`|`string` | Login for the user that this issue should be assigned to. **This field is [deprecated](https://developer.github.com/v3/versions/#v3-deprecations).**
 `state`|`string` | State of the issue. Either `open` or `closed`.
 `milestone`|`integer` | The `number` of the milestone to associate this issue with or `null` to remove current. _NOTE: Only users with push access can set the milestone for issues. The milestone is silently dropped otherwise._
 `labels`|`array` of `strings` | Labels to associate with this issue. Pass one or more Labels to _replace_ the set of Labels on this Issue. Send an empty array (`[]`) to clear all Labels from the Issue. _NOTE: Only users with push access can set labels for issues. Labels are silently dropped otherwise._
-
+`assignees`|`array` of `strings` | Logins for Users to assign to this issue. Pass one or more user logins to _replace_ the set of assignees on this Issue. .Send an empty array (`[]`) to clear all assignees from the Issue. _NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise._
 
 #### Example
 
@@ -202,6 +204,7 @@ Name | Type | Description
   :title     => "Found a bug",
   :body      => "I'm having a problem with this.",
   :assignee  => "octocat",
+  :assignees => [get_resource(:user)],
   :milestone => 1,
   :state     => "open",
   :labels    => %w(bug)
@@ -212,10 +215,10 @@ Name | Type | Description
 <%= headers 200 %>
 <%= json :full_issue %>
 
-{% if page.version == 'dotcom' %}
-
+{% if page.version == 'dotcom' or page.version >= 2.6 %}
 ## Lock an issue
 
+{% if page.version == 2.6 %}
 {{#tip}}
 
   <a name="preview-period"></a>
@@ -229,6 +232,7 @@ Name | Type | Description
       application/vnd.github.the-key-preview+json
 
 {{/tip}}
+{% endif %}
 
 Users with push access can lock an issue's conversation.
 
@@ -242,6 +246,7 @@ Users with push access can lock an issue's conversation.
 
 ## Unlock an issue
 
+{% if page.version == 2.6 %}
 {{#tip}}
 
   <a name="preview-period"></a>
@@ -255,6 +260,7 @@ Users with push access can lock an issue's conversation.
       application/vnd.github.the-key-preview+json
 
 {{/tip}}
+{% endif %}
 
 Users with push access can unlock an issue's conversation.
 

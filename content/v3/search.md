@@ -25,6 +25,8 @@ is a computed value representing the relevance of an item relative to the other
 items in the result set. Multiple factors are combined to boost the most
 relevant item to the top of the result list.
 
+{% if page.version == 'dotcom' %}
+
 ### Rate limit
 
 The Search API has a custom rate limit. For requests using [Basic
@@ -35,6 +37,8 @@ to make up to 10 requests per minute.
 
 See the [rate limit documentation](/v3/#rate-limiting) for details on
 determining your current rate limit status.
+
+{% endif %}
 
 ### Timeouts and incomplete results
 
@@ -93,7 +97,7 @@ repositories where the primary language is Assembly. We're sorting by stars in
 descending order, so that the most popular repositories appear first in the
 search results.
 
-<%= headers 200, {:pagination => default_pagination_rels, 'X-RateLimit-Limit' => 20, 'X-RateLimit-Remaining' => 19} %>
+<%= headers 200, {:pagination => default_pagination_rels{% if page.version == 'dotcom' %}, 'X-RateLimit-Limit' => 20, 'X-RateLimit-Remaining' => 19{% endif %}} %>
 <%= json(:repo_search_v3_results) %>
 
 ### Highlighting Repository Search Results
@@ -182,7 +186,7 @@ Here, we're searching for the keyword `addClass` within a file's contents. We're
 making sure that we're only looking in files where the language is JavaScript.
 And we're scoping the search to the `repo:jquery/jquery` repository.
 
-<%= headers 200, {:pagination => default_pagination_rels, 'X-RateLimit-Limit' => 20, 'X-RateLimit-Remaining' => 19} %>
+<%= headers 200, {:pagination => default_pagination_rels,{% if page.version == 'dotcom' %} 'X-RateLimit-Limit' => 20, 'X-RateLimit-Remaining' => 19{% endif %}} %>
 <%= json(:code_search_v3_results) %>
 
 ### Highlighting Code Search Results
@@ -285,7 +289,7 @@ that's labeled as `bug`. The search runs across repositories whose primary
 language is Python. We’re sorting by creation date in ascending order, so that
 the oldest issues appear first in the search results.
 
-<%= headers 200, {:pagination => default_pagination_rels, 'X-RateLimit-Limit' => 20, 'X-RateLimit-Remaining' => 19} %>
+<%= headers 200, {:pagination => default_pagination_rels,{% if page.version == 'dotcom' %} 'X-RateLimit-Limit' => 20, 'X-RateLimit-Remaining' => 19{% endif %}} %>
 <%= json(:issue_search_v3_results) %>
 
 ### Highlighting Issue Search Results
@@ -357,7 +361,7 @@ Imagine you're looking for a list of popular users. You might try out this query
 Here, we're looking at users with the name Tom. We're only interested in those
 with more than 42 repositories, and only if they have over 1,000 followers.
 
-<%= headers 200, {:pagination => default_pagination_rels, 'X-RateLimit-Limit' => 20, 'X-RateLimit-Remaining' => 19} %>
+<%= headers 200, {:pagination => default_pagination_rels,{% if page.version == 'dotcom' %} 'X-RateLimit-Limit' => 20, 'X-RateLimit-Remaining' => 19{% endif %}} %>
 <%= json(:user_search_v3_results) %>
 
 ### Highlighting User Search Results
